@@ -37,7 +37,7 @@ for (let i = 0; i < arrayItems.length ; i++) {
     const currentItem = arrayItems[i];
     // creo quindi ogni singolo elemento [] che comporrà l'array sfruttando un contatore
     const sliderItem = 
-    `<div class="card item text-bg-dark">
+    `<div class="card item text-bg-dark" style="height: calc(100% / 5)">
         <img src="${currentItem.image}" class="card-img">
         <div class="card-img-overlay">
             <h5 class="card-title">${currentItem.title}</h5>
@@ -67,9 +67,6 @@ rowItem[index].classList.add("active");
 // MILESTONE 3
 
 // BONUS 2 
-
-// creazione variabili legate ai 2 button
-
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 console.log(prev, next);
@@ -78,40 +75,32 @@ console.log(prev, next);
 let actualImage = document.querySelector(".actual-image");
 console.log(actualImage, typeof actualImage);
 
-// Alla pressione del tasto next........
-
+// Premo tasto next
 next.addEventListener ("click", function(){    
     
-    // tolgo lo stato di opacita 1 all'img attuale sulla dx
     rowItem[index].classList.remove("active");
     
-    // incremento l'indice
     index++;
     
     // Controllo per cominciare da capo
     if (index === arrayItems.length){
-        // rowItem[index].classList.remove("active");
-        index = 0;
-        // rowItem[index].classList.add("active");        
+        index = 0;       
     }
     
     // ingrandisco a sx l'immagine selezionata
     actualImage.innerHTML = rowItem[index].innerHTML;
 
-    // aggiungo lo stato di opacità 1 all img successiva sulla dx
     rowItem[index].classList.add("active");
     
 })
 
 
 
-// Alla pressione del tasto prev........
+// Premo tasto prev
 prev.addEventListener ("click", function(){    
     
-    // tolgo lo stato di non opacità all'img attuale
     rowItem[index].classList.remove("active");
     
-    // decremento l'indice
     index--;
 
     // eseguo un HTMLFormControlsCollection, se l'indice diventa negativo, lo resetto alla max lunghezza
@@ -119,10 +108,10 @@ prev.addEventListener ("click", function(){
        index = arrayItems.length-1;       
     }
     
-    // aggiungo lo stato di opacità all img successiva, o quella retro per meglio dire
     rowItem[index].classList.add("active");
     
     actualImage.innerHTML = rowItem[index].innerHTML;
 
-
 })
+
+const clock = setInterval(next.addEventListener, 3000);
