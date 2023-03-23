@@ -37,7 +37,7 @@ for (let i = 0; i < arrayItems.length ; i++) {
     const currentItem = arrayItems[i];
     // creo quindi ogni singolo elemento [] che comporrà l'array sfruttando un contatore
     const sliderItem = 
-    `<div class="card item text-bg-dark" style="height: calc(100% / 5)">
+    `<div class="card item text-bg-dark" style="height: calc(100% / ${arrayItems.length})">
         <img src="${currentItem.image}" class="card-img">
         <div class="card-img-overlay">
             <h5 class="card-title">${currentItem.title}</h5>
@@ -51,6 +51,9 @@ for (let i = 0; i < arrayItems.length ; i++) {
     console.log (itemCont)    
 }
 
+// creo variabile in cui nell'html conterrà l'immagine attuale grande
+let actualImage = document.querySelector(".actual-image");
+console.log(actualImage, typeof actualImage);
 
 //Creo un ulteriore variabile che lego all'elemento o elementi html, in questo caso i div che conterranno le img, specificando
 // con l'etichetta 0 in questo caso, che il primo elemento, oltre la classe di defaul .item gli si debba aggiungere anche
@@ -58,10 +61,15 @@ for (let i = 0; i < arrayItems.length ; i++) {
 
 // IMPOSTO PRIMO SLIDE OPACITA' 1
 
+function bigImageActive() {
+    actualImage.innerHTML = rowItem[index].innerHTML;
+    rowItem[index].classList.add("active");
+}
+
 let rowItem = document.getElementsByClassName("item");
 let index = 0;
 
-rowItem[index].classList.add("active");
+bigImageActive();
 
 
 // MILESTONE 3
@@ -70,10 +78,6 @@ rowItem[index].classList.add("active");
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 console.log(prev, next);
-
-// creo variabile in cui nell'html conterrà l'immagine attuale grande
-let actualImage = document.querySelector(".actual-image");
-console.log(actualImage, typeof actualImage);
 
 // Premo tasto next
 next.addEventListener ("click", function(){    
@@ -88,9 +92,7 @@ next.addEventListener ("click", function(){
     }
     
     // ingrandisco a sx l'immagine selezionata
-    actualImage.innerHTML = rowItem[index].innerHTML;
-
-    rowItem[index].classList.add("active");
+    bigImageActive();
     
 })
 
@@ -108,10 +110,22 @@ prev.addEventListener ("click", function(){
        index = arrayItems.length-1;       
     }
     
-    rowItem[index].classList.add("active");
-    
-    actualImage.innerHTML = rowItem[index].innerHTML;
+    bigImageActive();
 
 })
 
-const clock = setInterval(next.addEventListener, 3000);
+function nextButtonFunction() {
+    rowItem[index].classList.remove("active");
+    
+    index++;
+
+    // Controllo per cominciare da capo
+    if (index === arrayItems.length){
+        index = 0;       
+    }
+
+    // ingrandisco a sx l'immagine selezionata
+   bigImageActive();
+}
+
+const clock = setInterval(nextButtonFunction, 3000);
